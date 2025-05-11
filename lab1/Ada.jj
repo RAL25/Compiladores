@@ -39,6 +39,19 @@ TOKEN: {
     |<PERCENT: "%">
     |<LSQUAREBRACKET: "[">
     |<RSQUAREBRACKET: "]">
+    |<QUESTION: "?">
+
+//----SIMBOLOS DELIMITADORES
+    |<ARROW: "=>">
+    |<DOUBLEDOT: "..">
+    |<EXPONENTIATE: "**">
+    |<ASSIGNMENT: ":=">
+    |<INEQUALITY: "/=">
+    |<GREATERTHANOREQUAL: ">=">
+    |<LESSTHANOREQUAL: "<=">
+    |<LEFTLABELBRACKET: "<<">
+    |<RIGHTLABELBRACKET: ">>">
+    |<BOX: "<>">
 
 //----PALAVRAS RESERVADAS
     |<ABORT: <a><b><o><r><t>>
