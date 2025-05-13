@@ -44,17 +44,17 @@ double func(ponto_t v[], int n) {
 
         double temp = v[i].y * v[i].x % 123;
 
-   if (temp < 0.0) {
+        if (temp < 0.0) {
 
-      res -= res*2.e-2 +  func(v, n-1) * temp;
+            res -= res*2.e-2 +  func(v, n-1) * temp;
 
-     } else {
+        } else {
 
-      res += res*.3e3 +func(v, n-2) * temp;
+            res += res*.3e3 +func(v, n-2) * temp;
 
-      printf("Estranho, ne?\n");
+            printf("Estranho, ne?\n");
 
-   }
+        }
 
     }
 

@@ -262,5 +262,5 @@ void Input():
         |t = <ID> {System.out.println("ID " + t.image);}
 //--------NUMEROS
         |t = <NUMBER> {System.out.println("NUMBER " + t.image);}
-    )+
+    )*
 }
