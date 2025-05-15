@@ -53,6 +53,13 @@ TOKEN: {
     |<RIGHTLABELBRACKET: ">>">
     |<BOX: "<>">
 
+//----TIPOS
+    |<INTEGER: <i><n><t><e><g><e><r>>
+    |<FLOAT: <f><l><o><a><t>>
+    |<LONGFLOAT: <l><o><n><g><UNDERLINE><f><l><o><a><t>>
+    |<BOOLEAN: <b><o><o><l><e><a><n>>
+    |<CHARACTER: <c><h><a><r><a><c><t><e><r>>
+
 //----PALAVRAS RESERVADAS
     |<ABORT: <a><b><o><r><t>>
     |<ABS: <a><b><s>>
@@ -126,7 +133,7 @@ TOKEN: {
 //----NUMEROS
     |<NUMBER: (["0"-"9"])+>
 //----IDENTIFICADORES
-    |<ID: ["a"-"z", "A"-"Z", "_"] (["a"-"z", "A"-"Z", "0"-"9"])*>
+    |<ID: ["a"-"z", "A"-"Z", "_"] (["a"-"z", "A"-"Z", "0"-"9"] | ("_"(["a"-"z", "A"-"Z", "0"-"9"])))*>
 }
 
 TOKEN: {
@@ -163,7 +170,7 @@ void Input():
 {Token t;}
 {
     (
-        //<MAIN> {System.out.println("main");}
+//--------PALAVRAS RESERVADAS
         t = <ABORT> {System.out.println("RESERVADO " + t.image);}
         |t = <ABS> {System.out.println("RESERVADO " + t.image);}
         |t = <ABSTRACT> {System.out.println("RESERVADO " + t.image);}
@@ -258,6 +265,24 @@ void Input():
         |t = <PERCENT> {System.out.println("PERCENT " + t.image);}
         |t = <LSQUAREBRACKET> {System.out.println("LSQUAREBRACKET " + t.image);}
         |t = <RSQUAREBRACKET> {System.out.println("RSQUAREBRACKET " + t.image);}
+        |t = <QUESTION> {System.out.println("QUESTION " + t.image);}
+//--------SIMBOLOS DELIMITADORES
+        |t = <ARROW> {System.out.println("ARROW " + t.image);}
+        |t = <DOUBLEDOT> {System.out.println("DOUBLEDOT " + t.image);}
+        |t = <EXPONENTIATE> {System.out.println("EXPONENTIATE " + t.image);}
+        |t = <ASSIGNMENT> {System.out.println("ASSIGNMENT " + t.image);}
+        |t = <INEQUALITY> {System.out.println("INEQUALITY " + t.image);}
+        |t = <GREATERTHANOREQUAL> {System.out.println("GREATERTHANOREQUAL " + t.image);}
+        |t = <LESSTHANOREQUAL> {System.out.println("LESSTHANOREQUAL " + t.image);}
+        |t = <LEFTLABELBRACKET> {System.out.println("LEFTLABELBRACKET " + t.image);}
+        |t = <RIGHTLABELBRACKET> {System.out.println("RIGHTLABELBRACKET " + t.image);}
+        |t = <BOX> {System.out.println("BOX " + t.image);}
+//--------TIPOS
+        |t = <INTEGER> {System.out.println("INTEGER " + t.image);}
+        |t = <FLOAT> {System.out.println("FLOAT " + t.image);}
+        |t = <LONGFLOAT> {System.out.println("LONGFLOAT " + t.image);}
+        |t = <BOOLEAN> {System.out.println("BOOLEAN " + t.image);}
+        |t = <CHARACTER> {System.out.println("CHARACTER " + t.image);}
 //--------IDENTIFICADORES
         |t = <ID> {System.out.println("ID " + t.image);}
 //--------NUMEROS
