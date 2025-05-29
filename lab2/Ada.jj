@@ -1,0 +1,291 @@
+PARSER_BEGIN(Ada)
+import java.io.*;
+
+public class Ada{
+    public static void main(String[] args) throws ParseException, IOException{
+        Ada lexical = new Ada(System.in);
+        lexical.Input();
+    }
+}
+PARSER_END(Ada)
+
+SKIP: {
+     " "|"\t"|"\n"|"\r"
+}
+
+TOKEN: {
+//----SIMBOLOS
+    <QUOTATION: "\"">
+    |<NUMBERSIGN: "#">
+    |<AMPERSAND: "&">
+    |<APOSTROPHE: "'">
+    |<LPARENTHESIS: "(">
+    |<RPARENTHESIS: ")">
+    |<ASTERISK: "*">
+    |<PLUS: "+">
+    |<COMMA: ",">
+    |<HYPHEN: "-">
+    |<DOT: ".">
+    |<ATSIGN: "@">
+    |<COLON: ":">
+    |<SEMICOLON: ";">
+    |<LESSTHAN: "<">
+    |<EQUALS: "=">
+    |<GREATERTHAN: ">">
+    |<UNDERLINE: "_">
+    |<VERTICALLINE: "|">
+    |<SOLIDUS: "/">
+    |<EXCLAMATION: "!">
+    |<PERCENT: "%">
+    |<LSQUAREBRACKET: "[">
+    |<RSQUAREBRACKET: "]">
+    |<QUESTION: "?">
+
+//----SIMBOLOS DELIMITADORES
+    |<ARROW: "=>">
+    |<DOUBLEDOT: "..">
+    |<EXPONENTIATE: "**">
+    |<ASSIGNMENT: ":=">
+    |<INEQUALITY: "/=">
+    |<GREATERTHANOREQUAL: ">=">
+    |<LESSTHANOREQUAL: "<=">
+    |<LEFTLABELBRACKET: "<<">
+    |<RIGHTLABELBRACKET: ">>">
+    |<BOX: "<>">
+
+//----TIPOS
+    |<INTEGER: <i><n><t><e><g><e><r>>
+    |<FLOAT: <f><l><o><a><t>>
+    |<LONGFLOAT: <l><o><n><g><UNDERLINE><f><l><o><a><t>>
+    |<BOOLEAN: <b><o><o><l><e><a><n>>
+    |<CHARACTER: <c><h><a><r><a><c><t><e><r>>
+
+//----PALAVRAS RESERVADAS
+    |<ABORT: <a><b><o><r><t>>
+    |<ABS: <a><b><s>>
+    |<ABSTRACT: <a><b><s><t><r><a><c><t>>
+    |<ACCEPT: <a><c><c><e><p><t>>
+    |<ACCESS: <a><c><c><e><s><s>>
+    |<ALIASED: <a><l><i><a><s><e><d>>
+    |<ALL: <a><l><l>>
+    |<AND: <a><n><d>>
+    |<ARRAY: <a><r><r><a><y>>
+    |<AT: <a><t>>
+    |<BEGIN: <b><e><g><i><n>>
+    |<BODY: <b><o><d><y>>
+    |<CASE: <c><a><s><e>>
+    |<CONSTANT: <c><o><n><s><t><a><n><t>>
+    |<DECLARE: <d><e><c><l><a><r><e>>
+    |<DELAY: <d><e><l><a><y>>
+    |<DELTA: <d><e><l><t><a>>
+    |<DIGITS: <d><i><g><i><t><s>>
+    |<DO: <d><o>>
+    |<ELSE: <e><l><s><e>>
+    |<ELSIF: <e><l><s><i><f>>
+    |<END: <e><n><d>>
+    |<ENTRY: <e><n><t><r><y>>
+    |<EXCEPTION: <e><x><c><e><p><t><i><o><n>>
+    |<EXIT: <e><x><i><t>>
+    |<FOR: <f><o><r>>
+    |<FUNCTION: <f><u><n><c><t><i><o><n>>
+    |<GENERIC: <g><e><n><e><r><i><c>>
+    |<GOTO: <g><o><t><o>>
+    |<IF: <i><f>>
+    |<IN: <i><n>>
+    |<IS: <i><s>>
+    |<LIMITED: <l><i><m><i><t><e><d>>
+    |<LOOP: <l><o><o><p>>
+    |<MOD: <m><o><d>>
+    |<NEW: <n><e><w>>
+    |<NOT: <n><o><t>>
+    |<NULL: <n><u><l><l>>
+    |<OF: <o><f>>
+    |<OR: <o><r>>
+    |<OTHERS: <o><t><h><e><r><s>>
+    |<OUT: <o><u><t>>
+    |<OVERRIDING: <o><v><e><r><r><i><d><i><n><g>>
+    |<PACKAGE: <p><a><c><k><a><g><e>>
+    |<PRAGMA: <p><r><a><g><m><a>>
+    |<PRIVATE: <p><r><i><v><a><t><e>>
+    |<PROCEDURE: <p><r><o><c><e><d><u><r><e>>
+    |<PROTECTED: <p><r><o><t><e><c><t><e><d>>
+    |<RAISE: <r><a><i><s><e>>
+    |<RANGE: <r><a><n><g><e>>
+    |<RECORD: <r><e><c><o><r><d>>
+    |<REM: <r><e><m>>
+    |<RETURN: <r><e><t><u><r><n>>
+    |<REVERSE: <r><e><v><e><r><s><e>>
+    |<SELECT: <s><e><l><e><c><t>>
+    |<SEPARATE: <s><e><p><a><r><a><t><e>>
+    |<SOME: <s><o><m><e>>
+    |<SUBTYPE: <s><u><b><t><y><p><e>>
+    |<TAGGED: <t><a><g><g><e><d>>
+    |<TASK: <t><a><s><k>>
+    |<TERMINATE: <t><e><r><m><i><n><a><t><e>>
+    |<THEN: <t><h><e><n>>
+    |<TYPE: <t><y><p><e>>
+    |<UNTILL: <u><n><t><i><l><l>>
+    |<USE: <u><s><e>>
+    |<WHEN: <w><h><e><n>>
+    |<WHILE: <w><h><i><l><e>>
+    |<WITH: <w><i><t><h>>
+    |<XOR: <x><o><r>>
+//----NUMEROS
+    |<NUMBER: (["0"-"9"])+>
+//----IDENTIFICADORES
+    |<ID: ["a"-"z", "A"-"Z", "_"] (["a"-"z", "A"-"Z", "0"-"9"] | ("_"(["a"-"z", "A"-"Z", "0"-"9"])))*>
+}
+
+TOKEN: {
+    //Ada não diferencia maiúsculas de minúsculas para palavras reservadas
+    <a: ("a"|"A")>
+    |<b: ("b"|"B")>
+    |<c: ("c"|"C")>
+    |<d: ("d"|"D")>
+    |<e: ("e"|"E")>
+    |<f: ("f"|"F")>
+    |<g: ("g"|"G")>
+    |<h: ("h"|"H")>
+    |<i: ("i"|"I")>
+    |<j: ("j"|"J")>
+    |<k: ("k"|"K")>
+    |<l: ("l"|"L")>
+    |<m: ("m"|"M")>
+    |<n: ("n"|"N")>
+    |<o: ("o"|"O")>
+    |<p: ("p"|"P")>
+    |<q: ("q"|"Q")>
+    |<r: ("r"|"R")>
+    |<s: ("s"|"S")>
+    |<t: ("t"|"T")>
+    |<u: ("u"|"U")>
+    |<v: ("v"|"V")>
+    |<w: ("w"|"W")>
+    |<x: ("x"|"X")>
+    |<y: ("y"|"Y")>
+    |<z: ("z"|"Z")>
+}
+
+void Input():
+{Token t;}
+{
+    (
+//--------PALAVRAS RESERVADAS
+        t = <ABORT> {System.out.println("RESERVADO " + t.image);}
+        |t = <ABS> {System.out.println("RESERVADO " + t.image);}
+        |t = <ABSTRACT> {System.out.println("RESERVADO " + t.image);}
+        |t = <ACCEPT> {System.out.println("RESERVADO " + t.image);}
+        |t = <ACCESS> {System.out.println("RESERVADO " + t.image);}
+        |t = <ALIASED> {System.out.println("RESERVADO " + t.image);}
+        |t = <ALL> {System.out.println("RESERVADO " + t.image);}
+        |t = <AND> {System.out.println("RESERVADO " + t.image);}
+        |t = <ARRAY> {System.out.println("RESERVADO " + t.image);}
+        |t = <AT> {System.out.println("RESERVADO " + t.image);}
+        |t = <BEGIN> {System.out.println("RESERVADO " + t.image);}
+        |t = <BODY> {System.out.println("RESERVADO " + t.image);}
+        |t = <CASE> {System.out.println("RESERVADO " + t.image);}
+        |t = <CONSTANT> {System.out.println("RESERVADO " + t.image);}
+        |t = <DECLARE> {System.out.println("RESERVADO " + t.image);}
+        |t = <DELAY> {System.out.println("RESERVADO " + t.image);}
+        |t = <DELTA> {System.out.println("RESERVADO " + t.image);}
+        |t = <DIGITS> {System.out.println("RESERVADO " + t.image);}
+        |t = <DO> {System.out.println("RESERVADO " + t.image);}
+        |t = <ELSE> {System.out.println("RESERVADO " + t.image);}
+        |t = <ELSIF> {System.out.println("RESERVADO " + t.image);}
+        |t = <END> {System.out.println("RESERVADO " + t.image);}
+        |t = <ENTRY> {System.out.println("RESERVADO " + t.image);}
+        |t = <EXCEPTION> {System.out.println("RESERVADO " + t.image);}
+        |t = <EXIT> {System.out.println("RESERVADO " + t.image);}
+        |t = <FOR> {System.out.println("RESERVADO " + t.image);}
+        |t = <FUNCTION> {System.out.println("RESERVADO " + t.image);}
+        |t = <GENERIC> {System.out.println("RESERVADO " + t.image);}
+        |t = <GOTO> {System.out.println("RESERVADO " + t.image);}
+        |t = <IF> {System.out.println("RESERVADO " + t.image);}
+        |t = <IN> {System.out.println("RESERVADO " + t.image);}
+        |t = <IS> {System.out.println("RESERVADO " + t.image);}
+        |t = <LIMITED> {System.out.println("RESERVADO " + t.image);}
+        |t = <LOOP> {System.out.println("RESERVADO " + t.image);}
+        |t = <MOD> {System.out.println("RESERVADO " + t.image);}
+        |t = <NEW> {System.out.println("RESERVADO " + t.image);}
+        |t = <NOT> {System.out.println("RESERVADO " + t.image);}
+        |t = <NULL> {System.out.println("RESERVADO " + t.image);}
+        |t = <OF> {System.out.println("RESERVADO " + t.image);}
+        |t = <OR> {System.out.println("RESERVADO " + t.image);}
+        |t = <OTHERS> {System.out.println("RESERVADO " + t.image);}
+        |t = <OUT> {System.out.println("RESERVADO " + t.image);}
+        |t = <OVERRIDING> {System.out.println("RESERVADO " + t.image);}
+        |t = <PACKAGE> {System.out.println("RESERVADO " + t.image);}
+        |t = <PRAGMA> {System.out.println("RESERVADO " + t.image);}
+        |t = <PRIVATE> {System.out.println("RESERVADO " + t.image);}
+        |t = <PROCEDURE> {System.out.println("RESERVADO " + t.image);}
+        |t = <PROTECTED> {System.out.println("RESERVADO " + t.image);}
+        |t = <RAISE> {System.out.println("RESERVADO " + t.image);}
+        |t = <RANGE> {System.out.println("RESERVADO " + t.image);}
+        |t = <RECORD> {System.out.println("RESERVADO " + t.image);}
+        |t = <REM> {System.out.println("RESERVADO " + t.image);}
+        |t = <RETURN> {System.out.println("RESERVADO " + t.image);}
+        |t = <REVERSE> {System.out.println("RESERVADO " + t.image);}
+        |t = <SELECT> {System.out.println("RESERVADO " + t.image);}
+        |t = <SEPARATE> {System.out.println("RESERVADO " + t.image);}
+        |t = <SOME> {System.out.println("RESERVADO " + t.image);}
+        |t = <SUBTYPE> {System.out.println("RESERVADO " + t.image);}
+        |t = <TAGGED> {System.out.println("RESERVADO " + t.image);}
+        |t = <TASK> {System.out.println("RESERVADO " + t.image);}
+        |t = <TERMINATE> {System.out.println("RESERVADO " + t.image);}
+        |t = <THEN> {System.out.println("RESERVADO " + t.image);}
+        |t = <TYPE> {System.out.println("RESERVADO " + t.image);}
+        |t = <UNTILL> {System.out.println("RESERVADO " + t.image);}
+        |t = <USE> {System.out.println("RESERVADO " + t.image);}
+        |t = <WHEN> {System.out.println("RESERVADO " + t.image);}
+        |t = <WHILE> {System.out.println("RESERVADO " + t.image);}
+        |t = <WITH> {System.out.println("RESERVADO " + t.image);}
+        |t = <XOR> {System.out.println("RESERVADO " + t.image);}
+//--------SIMBOLOS
+        |t = <QUOTATION> {System.out.println("QUOTATION " + t.image);}
+        |t = <NUMBERSIGN> {System.out.println("NUMBERSIGN " + t.image);}
+        |t = <AMPERSAND> {System.out.println("AMPERSAND " + t.image);}
+        |t = <APOSTROPHE> {System.out.println("APOSTROPHE " + t.image);}
+        |t = <LPARENTHESIS> {System.out.println("LPARENTHESIS " + t.image);}
+        |t = <RPARENTHESIS> {System.out.println("RPARENTHESIS " + t.image);}
+        |t = <ASTERISK> {System.out.println("ASTERISK " + t.image);}
+        |t = <PLUS> {System.out.println("PLUS " + t.image);}
+        |t = <COMMA> {System.out.println("COMMA " + t.image);}
+        |t = <HYPHEN> {System.out.println("HYPHEN " + t.image);}
+        |t = <DOT> {System.out.println("DOT " + t.image);}
+        |t = <ATSIGN> {System.out.println("ATSIGN " + t.image);}
+        |t = <COLON> {System.out.println("COLON " + t.image);}
+        |t = <SEMICOLON> {System.out.println("SEMICOLON " + t.image);}
+        |t = <LESSTHAN> {System.out.println("LESSTHAN " + t.image);}
+        |t = <EQUALS> {System.out.println("EQUALS " + t.image);}
+        |t = <GREATERTHAN> {System.out.println("GREATERTHAN " + t.image);}
+        |t = <UNDERLINE> {System.out.println("UNDERLINE " + t.image);}
+        |t = <VERTICALLINE> {System.out.println("VERTICALLINE " + t.image);}
+        |t = <SOLIDUS> {System.out.println("SOLIDUS " + t.image);}
+        |t = <EXCLAMATION> {System.out.println("EXCLAMATION " + t.image);}
+        |t = <PERCENT> {System.out.println("PERCENT " + t.image);}
+        |t = <LSQUAREBRACKET> {System.out.println("LSQUAREBRACKET " + t.image);}
+        |t = <RSQUAREBRACKET> {System.out.println("RSQUAREBRACKET " + t.image);}
+        |t = <QUESTION> {System.out.println("QUESTION " + t.image);}
+//--------SIMBOLOS DELIMITADORES
+        |t = <ARROW> {System.out.println("ARROW " + t.image);}
+        |t = <DOUBLEDOT> {System.out.println("DOUBLEDOT " + t.image);}
+        |t = <EXPONENTIATE> {System.out.println("EXPONENTIATE " + t.image);}
+        |t = <ASSIGNMENT> {System.out.println("ASSIGNMENT " + t.image);}
+        |t = <INEQUALITY> {System.out.println("INEQUALITY " + t.image);}
+        |t = <GREATERTHANOREQUAL> {System.out.println("GREATERTHANOREQUAL " + t.image);}
+        |t = <LESSTHANOREQUAL> {System.out.println("LESSTHANOREQUAL " + t.image);}
+        |t = <LEFTLABELBRACKET> {System.out.println("LEFTLABELBRACKET " + t.image);}
+        |t = <RIGHTLABELBRACKET> {System.out.println("RIGHTLABELBRACKET " + t.image);}
+        |t = <BOX> {System.out.println("BOX " + t.image);}
+//--------TIPOS
+        |t = <INTEGER> {System.out.println("INTEGER " + t.image);}
+        |t = <FLOAT> {System.out.println("FLOAT " + t.image);}
+        |t = <LONGFLOAT> {System.out.println("LONGFLOAT " + t.image);}
+        |t = <BOOLEAN> {System.out.println("BOOLEAN " + t.image);}
+        |t = <CHARACTER> {System.out.println("CHARACTER " + t.image);}
+//--------IDENTIFICADORES
+        |t = <ID> {System.out.println("ID " + t.image);}
+//--------NUMEROS
+        |t = <NUMBER> {System.out.println("NUMBER " + t.image);}
+    )*
+}
