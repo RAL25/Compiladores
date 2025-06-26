@@ -1,0 +1,69 @@
+S -> inicio
+inicio -> PROCEDURE ID IS definicao BEGIN list_main END ID SEMICOLON
+definicao -> define definicao
+definicao -> v
+define -> func
+define -> decatA
+decatA -> ID COLON tipov atra SEMICOLON
+list_main -> main list_main
+list_main -> v
+main -> atr
+main -> call SEMICOLON
+main -> if_cmd
+if_cmd -> IF arit THEN list_main else_cmd END IF SEMICOLON
+else_cmd -> ELSE list_main
+else_cmd -> ELSIF arit THEN list_main else_cmd
+else_cmd -> v
+func -> FUNCTION ID LPARENTHESIS params RPARENTHESIS RETURN tipov IS decats BEGIN cmds END ID SEMICOLON
+params -> param
+params -> v
+param -> par
+param -> par SEMICOLON param
+par -> ID COLON tipov
+decats -> decat decats
+decats -> v
+decat -> ID COLON tipov atra SEMICOLON
+call -> ID LPARENTHESIS arguments RPARENTHESIS
+arguments -> args
+arguments -> v
+args -> arg
+args -> arg COMMA args
+arg -> ID
+arg -> NUMBER
+atra -> ASSIGNMENT NUMBER
+atra -> v
+atr -> ID ASSIGNMENT arit SEMICOLON
+arit -> arit_add arit'
+arit' -> oprA arit_add arit'
+arit' -> v
+arit_add -> arit_mul arit_add'
+arit_add' -> oprB arit_mul arit_add'
+arit_add' -> v
+arit_mul -> arit_unary arit_mul'
+arit_mul' -> oprC arit_unary arit_mul'
+arit_mul' -> v
+arit_unary -> HYPHEN arit_unary
+arit_unary -> PLUS arit_unary
+arit_unary -> NOT arit_unary
+arit_unary -> fator
+fator -> LPARENTHESIS arit RPARENTHESIS
+fator -> ID
+fator -> NUMBER
+oprA -> LESSTHAN 
+oprA -> LESSTHANOREQUAL 
+oprA -> EQUALS 
+oprA -> GREATERTHANOREQUAL 
+oprA -> GREATERTHAN 
+oprA -> INEQUALITY
+oprB -> PLUS 
+oprB -> HYPHEN 
+oprB -> OR 
+oprB -> XOR
+oprC -> ASTERISK 
+oprC -> SOLIDUS 
+oprC -> MOD 
+oprC -> AND
+tipov -> INTEGER 
+tipov -> FLOAT 
+tipov -> BOOLEAN
+v -> ''

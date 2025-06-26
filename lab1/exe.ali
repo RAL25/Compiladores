@@ -1,0 +1,16 @@
+V "GNAT Lib v13"
+M P W=b
+P ZX
+
+RN
+
+U exe%b			exe.adb			2b9366bc NE OO SU
+
+D exe.adb		20250603123214 2b9366bc exe%b
+D system.ads		20240521074738 426dafb8 system%s
+G a e
+G c Z b b [exe standard 1 11 none]
+X 1 exe.adb
+1U11*Exe 1b11 5l5 5t8
+2i4 Resultado{integer} 4m4
+

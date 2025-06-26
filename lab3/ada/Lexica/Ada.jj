@@ -1,0 +1,293 @@
+PARSER_BEGIN(Ada)
+import java.io.*;
+
+public class Ada{
+    public static void main(String[] args) throws ParseException, IOException{
+        Ada lexical = new Ada(System.in);
+        lexical.Input();
+    }
+}
+PARSER_END(Ada)
+
+SKIP: {
+     " "|"\t"|"\n"|"\r"
+}
+
+TOKEN: {
+//----SIMBOLOS
+    <QUOTATION: "\"">
+    |<NUMBERSIGN: "#">
+    |<AMPERSAND: "&">
+    |<APOSTROPHE: "'">
+    |<LPARENTHESIS: "(">
+    |<RPARENTHESIS: ")">
+    |<ASTERISK: "*">
+    |<PLUS: "+">
+    |<COMMA: ",">
+    |<HYPHEN: "-">
+    |<DOT: ".">
+    |<ATSIGN: "@">
+    |<COLON: ":">
+    |<SEMICOLON: ";">
+    |<LESSTHAN: "<">
+    |<EQUALS: "=">
+    |<GREATERTHAN: ">">
+    |<UNDERLINE: "_">
+    |<VERTICALLINE: "|">
+    |<SOLIDUS: "/">
+    |<EXCLAMATION: "!">
+    |<PERCENT: "%">
+    |<LSQUAREBRACKET: "[">
+    |<RSQUAREBRACKET: "]">
+    |<QUESTION: "?">
+
+//----SIMBOLOS DELIMITADORES
+    |<ARROW: "=>">
+    |<DOUBLEDOT: "..">
+    |<EXPONENTIATE: "**">
+    |<ASSIGNMENT: ":=">
+    |<INEQUALITY: "/=">
+    |<GREATERTHANOREQUAL: ">=">
+    |<LESSTHANOREQUAL: "<=">
+    |<LEFTLABELBRACKET: "<<">
+    |<RIGHTLABELBRACKET: ">>">
+    |<BOX: "<>">
+
+//----TIPOS
+    |<INTEGER: <i><n><t><e><g><e><r>>
+    |<FLOAT: <f><l><o><a><t>>
+    |<LONGFLOAT: <l><o><n><g><UNDERLINE><f><l><o><a><t>>
+    |<BOOLEAN: <b><o><o><l><e><a><n>>
+    |<CHARACTER: <c><h><a><r><a><c><t><e><r>>
+
+//----PALAVRAS RESERVADAS
+    |<ABORT: <a><b><o><r><t>>
+    |<ABS: <a><b><s>>
+    |<ABSTRACT: <a><b><s><t><r><a><c><t>>
+    |<ACCEPT: <a><c><c><e><p><t>>
+    |<ACCESS: <a><c><c><e><s><s>>
+    |<ALIASED: <a><l><i><a><s><e><d>>
+    |<ALL: <a><l><l>>
+    |<AND: <a><n><d>>
+    |<ARRAY: <a><r><r><a><y>>
+    |<AT: <a><t>>
+    |<BEGIN: <b><e><g><i><n>>
+    |<BODY: <b><o><d><y>>
+    |<CASE: <c><a><s><e>>
+    |<CONSTANT: <c><o><n><s><t><a><n><t>>
+    |<DECLARE: <d><e><c><l><a><r><e>>
+    |<DELAY: <d><e><l><a><y>>
+    |<DELTA: <d><e><l><t><a>>
+    |<DIGITS: <d><i><g><i><t><s>>
+    |<DO: <d><o>>
+    |<ELSE: <e><l><s><e>>
+    |<ELSIF: <e><l><s><i><f>>
+    |<END: <e><n><d>>
+    |<ENTRY: <e><n><t><r><y>>
+    |<EXCEPTION: <e><x><c><e><p><t><i><o><n>>
+    |<EXIT: <e><x><i><t>>
+    |<FOR: <f><o><r>>
+    |<FUNCTION: <f><u><n><c><t><i><o><n>>
+    |<GENERIC: <g><e><n><e><r><i><c>>
+    |<GOTO: <g><o><t><o>>
+    |<IF: <i><f>>
+    |<IN: <i><n>>
+    |<IS: <i><s>>
+    |<LIMITED: <l><i><m><i><t><e><d>>
+    |<LOOP: <l><o><o><p>>
+    |<MOD: <m><o><d>>
+    |<NEW: <n><e><w>>
+    |<NOT: <n><o><t>>
+    |<NULL: <n><u><l><l>>
+    |<OF: <o><f>>
+    |<OR: <o><r>>
+    |<OTHERS: <o><t><h><e><r><s>>
+    |<OUT: <o><u><t>>
+    |<OVERRIDING: <o><v><e><r><r><i><d><i><n><g>>
+    |<PACKAGE: <p><a><c><k><a><g><e>>
+    |<PRAGMA: <p><r><a><g><m><a>>
+    |<PRIVATE: <p><r><i><v><a><t><e>>
+    |<PROCEDURE: <p><r><o><c><e><d><u><r><e>>
+    |<PROTECTED: <p><r><o><t><e><c><t><e><d>>
+    |<RAISE: <r><a><i><s><e>>
+    |<RANGE: <r><a><n><g><e>>
+    |<RECORD: <r><e><c><o><r><d>>
+    |<REM: <r><e><m>>
+    |<RETURN: <r><e><t><u><r><n>>
+    |<REVERSE: <r><e><v><e><r><s><e>>
+    |<SELECT: <s><e><l><e><c><t>>
+    |<SEPARATE: <s><e><p><a><r><a><t><e>>
+    |<SOME: <s><o><m><e>>
+    |<SUBTYPE: <s><u><b><t><y><p><e>>
+    |<TAGGED: <t><a><g><g><e><d>>
+    |<TASK: <t><a><s><k>>
+    |<TERMINATE: <t><e><r><m><i><n><a><t><e>>
+    |<THEN: <t><h><e><n>>
+    |<TYPE: <t><y><p><e>>
+    |<UNTILL: <u><n><t><i><l><l>>
+    |<USE: <u><s><e>>
+    |<WHEN: <w><h><e><n>>
+    |<WHILE: <w><h><i><l><e>>
+    |<WITH: <w><i><t><h>>
+    |<XOR: <x><o><r>>
+//----NUMEROS
+    |<NUMBER: (["0"-"9"])+>
+//----IDENTIFICADORES
+    |<ID: ["a"-"z", "A"-"Z", "_"] (["a"-"z", "A"-"Z", "0"-"9"] | ("_"(["a"-"z", "A"-"Z", "0"-"9"])))*>
+}
+
+TOKEN: {
+    //Ada não diferencia maiúsculas de minúsculas para palavras reservadas
+    <a: ("a"|"A")>
+    |<b: ("b"|"B")>
+    |<c: ("c"|"C")>
+    |<d: ("d"|"D")>
+    |<e: ("e"|"E")>
+    |<f: ("f"|"F")>
+    |<g: ("g"|"G")>
+    |<h: ("h"|"H")>
+    |<i: ("i"|"I")>
+    |<j: ("j"|"J")>
+    |<k: ("k"|"K")>
+    |<l: ("l"|"L")>
+    |<m: ("m"|"M")>
+    |<n: ("n"|"N")>
+    |<o: ("o"|"O")>
+    |<p: ("p"|"P")>
+    |<q: ("q"|"Q")>
+    |<r: ("r"|"R")>
+    |<s: ("s"|"S")>
+    |<t: ("t"|"T")>
+    |<u: ("u"|"U")>
+    |<v: ("v"|"V")>
+    |<w: ("w"|"W")>
+    |<x: ("x"|"X")>
+    |<y: ("y"|"Y")>
+    |<z: ("z"|"Z")>
+}
+
+void Input():
+{Token t;}
+{
+    (
+//--------PALAVRAS RESERVADAS
+         t = <ABORT> {System.out.println("ABORT ABORT");}
+        |t = <ABS> {System.out.println("ABS ABS");}
+        |t = <ABSTRACT> {System.out.println("ABSTRACT ABSTRACT");}
+        |t = <ACCEPT> {System.out.println("ACCEPT ACCEPT");}
+        |t = <ACCESS> {System.out.println("ACCESS ACCESS");}
+        |t = <ALIASED> {System.out.println("ALIASED ALIASED");}
+        |t = <ALL> {System.out.println("ALL ALL");}
+        |t = <AND> {System.out.println("AND AND");}
+        |t = <ARRAY> {System.out.println("ARRAY ARRAY");}
+        |t = <AT> {System.out.println("AT AT");}
+        |t = <BEGIN> {System.out.println("BEGIN BEGIN");}
+        |t = <BODY> {System.out.println("BODY BODY");}
+        |t = <CASE> {System.out.println("CASE CASE");}
+        |t = <CONSTANT> {System.out.println("CONSTANT CONSTANT");}
+        |t = <DECLARE> {System.out.println("DECLARE DECLARE");}
+        |t = <DELAY> {System.out.println("DELAY DELAY");}
+        |t = <DELTA> {System.out.println("DELTA DELTA");}
+        |t = <DIGITS> {System.out.println("DIGITS DIGITS");}
+        |t = <DO> {System.out.println("DO DO");}
+        |t = <ELSE> {System.out.println("ELSE ELSE");}
+        |t = <ELSIF> {System.out.println("ELSIF ELSIF");}
+        |t = <END> {System.out.println("END END");}
+        |t = <ENTRY> {System.out.println("ENTRY ENTRY");}
+        |t = <EXCEPTION> {System.out.println("EXCEPTION EXCEPTION");}
+        |t = <EXIT> {System.out.println("EXIT EXIT");}
+        |t = <FOR> {System.out.println("FOR FOR");}
+        |t = <FUNCTION> {System.out.println("FUNCTION FUNCTION");}
+        |t = <GENERIC> {System.out.println("GENERIC GENERIC");}
+        |t = <GOTO> {System.out.println("GOTO GOTO");}
+        |t = <IF> {System.out.println("IF IF");}
+        |t = <IN> {System.out.println("IN IN");}
+        |t = <IS> {System.out.println("IS IS");}
+        |t = <LIMITED> {System.out.println("LIMITED LIMITED");}
+        |t = <LOOP> {System.out.println("LOOP LOOP");}
+        |t = <MOD> {System.out.println("MOD MOD");}
+        |t = <NEW> {System.out.println("NEW NEW");}
+        |t = <NOT> {System.out.println("NOT NOT");}
+        |t = <NULL> {System.out.println("NULL NULL");}
+        |t = <OF> {System.out.println("OF OF");}
+        |t = <OR> {System.out.println("OR OR");}
+        |t = <OTHERS> {System.out.println("OTHERS OTHERS");}
+        |t = <OUT> {System.out.println("OUT OUT");}
+        |t = <OVERRIDING> {System.out.println("OVERRIDING OVERRIDING");}
+        |t = <PACKAGE> {System.out.println("PACKAGE PACKAGE");}
+        |t = <PRAGMA> {System.out.println("PRAGMA PRAGMA");}
+        |t = <PRIVATE> {System.out.println("PRIVATE PRIVATE");}
+        |t = <PROCEDURE> {System.out.println("PROCEDURE PROCEDURE");}
+        |t = <PROTECTED> {System.out.println("PROTECTED PROTECTED");}
+        |t = <RAISE> {System.out.println("RAISE RAISE");}
+        |t = <RANGE> {System.out.println("RANGE RANGE");}
+        |t = <RECORD> {System.out.println("RECORD RECORD");}
+        |t = <REM> {System.out.println("REM REM");}
+        |t = <RETURN> {System.out.println("RETURN RETURN");}
+        |t = <REVERSE> {System.out.println("REVERSE REVERSE");}
+        |t = <SELECT> {System.out.println("SELECT SELECT");}
+        |t = <SEPARATE> {System.out.println("SEPARATE SEPARATE");}
+        |t = <SOME> {System.out.println("SOME SOME");}
+        |t = <SUBTYPE> {System.out.println("SUBTYPE SUBTYPE");}
+        |t = <TAGGED> {System.out.println("TAGGED TAGGED");}
+        |t = <TASK> {System.out.println("TASK TASK");}
+        |t = <TERMINATE> {System.out.println("TERMINATE TERMINATE");}
+        |t = <THEN> {System.out.println("THEN THEN");}
+        |t = <TYPE> {System.out.println("TYPE TYPE");}
+        |t = <UNTILL> {System.out.println("UNTILL UNTILL");}
+        |t = <USE> {System.out.println("USE USE");}
+        |t = <WHEN> {System.out.println("WHEN WHEN");}
+        |t = <WHILE> {System.out.println("WHILE WHILE");}
+        |t = <WITH> {System.out.println("WITH WITH");}
+        |t = <XOR> {System.out.println("XOR XOR");}
+//--------SIMBOLOS
+        |t = <QUOTATION> {System.out.println("QUOTATION QUOTATION");}
+        |t = <NUMBERSIGN> {System.out.println("NUMBERSIGN NUMBERSIGN");}
+        |t = <AMPERSAND> {System.out.println("AMPERSAND AMPERSAND");}
+        |t = <APOSTROPHE> {System.out.println("APOSTROPHE APOSTROPHE");}
+        |t = <LPARENTHESIS> {System.out.println("LPARENTHESIS LPARENTHESIS");}
+        |t = <RPARENTHESIS> {System.out.println("RPARENTHESIS RPARENTHESIS");}
+        |t = <ASTERISK> {System.out.println("ASTERISK ASTERISK");}
+        |t = <PLUS> {System.out.println("PLUS PLUS");}
+        |t = <COMMA> {System.out.println("COMMA COMMA");}
+        |t = <HYPHEN> {System.out.println("HYPHEN HYPHEN");}
+        |t = <DOT> {System.out.println("DOT DOT");}
+        |t = <ATSIGN> {System.out.println("ATSIGN ATSIGN");}
+        |t = <COLON> {System.out.println("COLON COLON");}
+        |t = <SEMICOLON> {System.out.println("SEMICOLON SEMICOLON");}
+        |t = <LESSTHAN> {System.out.println("LESSTHAN LESSTHAN");}
+        |t = <EQUALS> {System.out.println("EQUALS EQUALS");}
+        |t = <GREATERTHAN> {System.out.println("GREATERTHAN GREATERTHAN");}
+        |t = <UNDERLINE> {System.out.println("UNDERLINE UNDERLINE");}
+        |t = <VERTICALLINE> {System.out.println("VERTICALLINE VERTICALLINE");}
+        |t = <SOLIDUS> {System.out.println("SOLIDUS SOLIDUS");}
+        |t = <EXCLAMATION> {System.out.println("EXCLAMATION EXCLAMATION");}
+        |t = <PERCENT> {System.out.println("PERCENT PERCENT");}
+        |t = <LSQUAREBRACKET> {System.out.println("LSQUAREBRACKET LSQUAREBRACKET");}
+        |t = <RSQUAREBRACKET> {System.out.println("RSQUAREBRACKET RSQUAREBRACKET");}
+        |t = <QUESTION> {System.out.println("QUESTION QUESTION");}
+//--------SIMBOLOS DELIMITADORES
+        |t = <ARROW> {System.out.println("ARROW ARROW");}
+        |t = <DOUBLEDOT> {System.out.println("DOUBLEDOT DOUBLEDOT");}
+        |t = <EXPONENTIATE> {System.out.println("EXPONENTIATE EXPONENTIATE");}
+        |t = <ASSIGNMENT> {System.out.println("ASSIGNMENT ASSIGNMENT");}
+        |t = <INEQUALITY> {System.out.println("INEQUALITY INEQUALITY");}
+        |t = <GREATERTHANOREQUAL> {System.out.println("GREATERTHANOREQUAL GREATERTHANOREQUAL");}
+        |t = <LESSTHANOREQUAL> {System.out.println("LESSTHANOREQUAL LESSTHANOREQUAL");}
+        |t = <LEFTLABELBRACKET> {System.out.println("LEFTLABELBRACKET LEFTLABELBRACKET");}
+        |t = <RIGHTLABELBRACKET> {System.out.println("RIGHTLABELBRACKET RIGHTLABELBRACKET");}
+        |t = <BOX> {System.out.println("BOX BOX");}
+//--------TIPOS
+        |t = <INTEGER> {System.out.println("INTEGER INTEGER");}
+        |t = <FLOAT> {System.out.println("FLOAT FLOAT");}
+        |t = <LONGFLOAT> {System.out.println("LONGFLOAT LONGFLOAT");}
+        |t = <BOOLEAN> {System.out.println("BOOLEAN BOOLEAN");}
+        |t = <CHARACTER> {System.out.println("CHARACTER CHARACTER");}
+//--------IDENTIFICADORES
+        |t = <ID> {System.out.println("ID " + t.image);}
+//--------NUMEROS
+        |t = <NUMBER> {System.out.println("NUMBER " + t.image);}
+
+    )*
+        {System.out.println("$ $");}
+}

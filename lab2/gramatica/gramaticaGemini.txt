@@ -1,0 +1,112 @@
+// Símbolo inicial da gramática
+S -> inicio
+
+// Estrutura principal do programa
+inicio -> PROCEDURE ID IS definicoes BEGIN lista_comandos END ID SEMICOLON
+
+// Seção de definições: uma lista de funções ou declarações de variáveis
+definicoes -> definicao definicoes
+definicoes -> v // v representa a produção vazia (epsilon)
+
+definicao -> func
+definicao -> decatA
+
+// Declaração de variável no escopo do procedimento
+decatA -> ID COLON tipov atra SEMICOLON
+
+// Lista de comandos no corpo principal ou de uma função/bloco
+lista_comandos -> comando lista_comandos
+lista_comandos -> v
+
+// Tipos de comandos permitidos
+comando -> atr
+         | call SEMICOLON
+         | if_stmt
+
+// Estrutura de IF-THEN-ELSE-ELSIF (soluciona o "dangling else")
+if_stmt -> IF arit THEN lista_comandos else_part END IF SEMICOLON
+else_part -> ELSE lista_comandos
+           | ELSIF arit THEN lista_comandos else_part
+           | v
+
+// Definição de função
+func -> FUNCTION ID LPARENTHESIS params_opt RPARENTHESIS RETURN tipov IS decats_locais BEGIN lista_comandos END ID SEMICOLON
+
+// Parâmetros opcionais em uma função
+params_opt -> lista_params
+            | v
+
+// Lista de parâmetros separados por ponto e vírgula
+lista_params -> param_item
+              | param_item SEMICOLON lista_params
+
+param_item -> ID COLON tipov
+
+// Declarações de variáveis locais dentro de uma função
+decats_locais -> decat_local decats_locais
+               | v
+
+decat_local -> ID COLON tipov atra SEMICOLON
+
+// Chamada de procedimento/função
+call -> ID LPARENTHESIS args_opt RPARENTHESIS
+
+// Argumentos opcionais na chamada de uma função
+args_opt -> lista_args
+          | v
+
+// Lista de argumentos separados por vírgula
+lista_args -> arg
+            | arg COMMA lista_args
+
+arg -> ID
+arg -> NUMBER
+
+// Atribuição com inicialização opcional (escopo do procedimento)
+atra -> ASSIGNMENT NUMBER
+atra -> v
+
+// Comando de atribuição no corpo do código
+atr -> ID ASSIGNMENT arit SEMICOLON
+
+
+// ========= SEÇÃO DE EXPRESSÕES REESCRITA (SOLUÇÃO DOS CONFLITOS) =========
+// A gramática de expressões foi reestruturada para definir precedência
+// e associatividade, eliminando a ambiguidade e a recursão à esquerda.
+
+// Nível 1: Operadores Relacionais (menor precedência, associatividade à esquerda)
+arit -> arit_add arit'
+arit' -> oprA arit_add arit'
+       | v
+
+// Nível 2: Operadores Aditivos (associatividade à esquerda)
+arit_add -> arit_mul arit_add'
+arit_add' -> oprB arit_mul arit_add'
+           | v
+
+// Nível 3: Operadores Multiplicativos (associatividade à esquerda)
+arit_mul -> arit_unary arit_mul'
+arit_mul' -> oprC arit_unary arit_mul'
+           | v
+
+// Nível 4: Operadores Unários (maior precedência que os binários, associatividade à direita)
+arit_unary -> HYPHEN arit_unary
+            | PLUS arit_unary
+            | NOT arit_unary
+            | fator
+
+// Nível 5: Fatores (elementos primários de uma expressão)
+fator -> LPARENTHESIS arit RPARENTHESIS
+       | ID
+       | NUMBER
+
+// Grupos de operadores por nível de precedência
+oprA -> LESSTHAN | LESSTHANOREQUAL | EQUALS | GREATERTHANOREQUAL | GREATERTHAN | INEQUALITY
+oprB -> PLUS | HYPHEN | OR | XOR
+oprC -> ASTERISK | SOLIDUS | MOD | AND
+
+// Tipos de variáveis
+tipov -> INTEGER | FLOAT | BOOLEAN
+
+// Produção vazia (epsilon)
+v -> ''
