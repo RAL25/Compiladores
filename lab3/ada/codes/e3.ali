@@ -1,0 +1,17 @@
+V "GNAT Lib v13"
+M P W=b
+P ZX
+
+RN
+
+U teste%b		e3.adb			6c8a5f2c NE OO SU KU
+
+D system.ads		20240521074738 426dafb8 system%s
+D e3.adb		20250627022902 6c8a5f2c teste%b
+G a e
+G c Z b b [teste standard 1 11 none]
+X 2 e3.adb
+1U11*Teste 1b11 7l5 7t10
+2i3 A{integer} 5m3
+3b3 B{boolean}
+
