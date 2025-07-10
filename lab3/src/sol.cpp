@@ -47,15 +47,17 @@ int main(int argc, char * argv[]) {
   Arvore_parse arv = parser.executa_parse(cin);
   cerr << "Parse executado" << endl;
   arv.debug();
+
+  
   Funcao* func = Funcao::extrai_funcao(arv.raiz);
   func->debug();
   // Exemplo de chamada do analisador semantico.
-  vector<int> parametros_passados;
-  for (int i = 1; i <= 3; ++i) {
-    parametros_passados.push_back(i*10);
-  }
-  Analisador ana;
-  cout << "Ultimo valor calculado:" << endl;
-  cout << ana.calcula_ultimo_valor(func, parametros_passados) << endl;
+  // vector<int> parametros_passados;
+  // for (int i = 1; i <= 3; ++i) {
+  //   parametros_passados.push_back(i*10);
+  // }
+  // Analisador ana;
+  // cout << "Ultimo valor calculado:" << endl;
+  // cout << ana.calcula_ultimo_valor(func, parametros_passados) << endl;
   return 0;
 }

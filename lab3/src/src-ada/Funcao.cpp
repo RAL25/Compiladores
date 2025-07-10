@@ -5,33 +5,18 @@
 Funcao::Funcao() {
 }
 
-Procedure* Procedure::extrai_procedure(No_arv_parse *no) {
-  if (no->regra != 1)   return NULL;
-  // Dependente da gramatica. Regra 1 = Funcao.
-  // S -> ID ID ( LP ) { LV LC }
-  // inicio -> PROCEDURE ID IS define BEGIN main END ID SEMICOLON
-  Funcao* res = new Funcao();
-  // res->tipo_retorno = ID::extrai_ID(no->filhos[0]);
-  res->nome_funcao = ID::extrai_ID(no->filhos[1]);
-  res->parametros = ::extrai_lista_define(no->filhos[3]);
-  res->variaveis = ::extrai_lista_main(no->filhos[5]);
-  // res->comandos = Comando::extrai_lista_comandos(no->filhos[7]);
-  res->nome_funcao = ID::extrai_ID(no->filhos[7]);
-  return res;
-}
-
 Funcao* Funcao::extrai_funcao(No_arv_parse *no){
   if (no->regra != 1)   return NULL;
   // Dependente da gramatica. Regra 1 = Funcao.
   // S -> ID ID ( LP ) { LV LC }
-  // func -> FUNCTION ID LPARENTHESIS param RPARENTHESIS RETURN tipov IS decat BEGIN cmd RETURN arit SEMICOLON END ID SEMICOLON
+  // func -> FUNCTION ID LPARENTHESIS param RPARENTHESIS RETURN tipov IS decat BEGIN main RETURN arit SEMICOLON END ID SEMICOLON
   Funcao* res = new Funcao();
-  // res->tipo_retorno = ID::extrai_ID(no->filhos[0]);
   res->nome_funcao = ID::extrai_ID(no->filhos[1]);
-  res->parametros = ::extrai_lista_param(no->filhos[3]);
-  res->variaveis = ::extrai_lista_main(no->filhos[5]);
-  // res->comandos = Comando::extrai_lista_comandos(no->filhos[7]);
-  res->nome_funcao = ID::extrai_ID(no->filhos[7]);
+  res->parametros = Parametro::extrai_lista_parametros(no->filhos[3]);
+  res->tipo_retorno = Tipo::extrai_tipo(no->filhos[6]);
+  res->declaracoes = Declaracao::extrai_lista_declaracoes(no->filhos[8]);
+  res->comandos = Comando::extrai_lista_comandos(no->filhos[7]);
+  // res->nome_funcao = ID::extrai_ID(no->filhos[7]);
   return res;
 }
 

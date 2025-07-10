@@ -3,6 +3,8 @@ PROCEDURE Main IS
   FUNCTION Calc(a: INTEGER; b: INTEGER) RETURN INTEGER IS
     c : INTEGER;
   BEGIN
+    Calc(1,2);
+    c := a;
     IF a > 0 THEN
       c := (a * b) + Calc(a-1, b);
     ELSE

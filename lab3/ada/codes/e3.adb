@@ -3,5 +3,4 @@ PROCEDURE Teste IS
   B : BOOLEAN;
 BEGIN
   A := 10;
---    B := A + 5; 
 END Teste;
