@@ -6,15 +6,16 @@
 using namespace std;
 
 /*
-19)param -> ID COLON tipov par
-20)param -> v
-21)par -> SEMICOLON ID COLON tipov par
-22)par -> v*/
+22)parametros -> ID COLON tipov parametro
+23)parametros -> v
+24)parametro -> SEMICOLON ID COLON tipov parametro
+25)parametro -> v
+*/
 
 vector<Parametro *> Parametro::extrai_lista_parametros(No_arv_parse* no) {
   // LP
-  if (no->regra == 20) return vector<Parametro*>();
-  // Tem que ser regra 19.
+  if (no->regra == 23) return vector<Parametro*>();
+  // Tem que ser regra 22.
   vector<Parametro*> res;
   Parametro* aux;
   aux->nome = ID::extrai_ID(no->filhos[0]);
@@ -26,8 +27,8 @@ vector<Parametro *> Parametro::extrai_lista_parametros(No_arv_parse* no) {
 }
 
 vector<Parametro*> Parametro::extrai_lista_par(No_arv_parse* no) {
-  if (no->regra == 22) return vector<Parametro*>();
-  // Tem que ser regra 21.
+  if (no->regra == 25) return vector<Parametro*>();
+  // Tem que ser regra 24.
   vector<Parametro*> res;
   Parametro* aux;
   aux->nome = ID::extrai_ID(no->filhos[1]);

@@ -11,6 +11,36 @@
 
 using namespace std;
 
+/*
+35) arit -> aritA
+36) arit -> aritA oprA aritA
+37) oprA -> LESSTHAN
+38) oprA -> LESSTHANOREQUAL
+39) oprA -> EQUALS
+40) oprA -> GREATERTHANOREQUAL
+41) oprA -> GREATERTHAN
+42) oprA -> INEQUALITY
+43) aritA -> aritA oprB aritB
+44) aritA -> aritB
+45) oprB -> PLUS
+46) oprB -> HYPHEN
+47) oprB -> OR
+48) oprB -> XOR
+49) aritB -> aritB oprC aritC
+50) aritB -> aritC
+51) oprC -> ASTERISK
+52) oprC -> SOLIDUS
+53) oprC -> MOD
+54) oprC -> AND
+55) aritC -> LPARENTHESIS arit RPARENTHESIS
+56) aritC -> HYPHEN aritC
+57) aritC -> PLUS aritC
+58) aritC -> NOT aritC
+59) aritC -> ID 
+60) aritC -> NUMBER 
+61) aritC -> call
+*/
+
 // Tratei tanto o E quanto T e F na mesma funcao.
 Expressao* Expressao::extrai_expressao(No_arv_parse* no) {
   // E,T,F. 14) a 23)

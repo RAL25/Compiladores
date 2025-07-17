@@ -5,15 +5,15 @@
 using namespace std;
 
 /*
-23)decat -> ID COLON tipov atra SEMICOLON decat
-24)decat -> v
-25)atra -> ASSIGNMENT arit
-26)atra -> v
+26)decat -> ID COLON tipov atra SEMICOLON decat
+27)decat -> v
+28)atra -> ASSIGNMENT arit
+29)atra -> v
 */
 
 vector<Declaracao *> Declaracao::extrai_lista_declaracoes(No_arv_parse* no) {
-  if (no->regra == 24) return vector<Declaracao*>();
-  // Tem que ser regra 23.
+  if (no->regra == 27) return vector<Declaracao*>();
+  // Tem que ser regra 26.
   vector<Declaracao*> res;
   Declaracao* aux;
   aux->nome = ID::extrai_ID(no->filhos[0]);
@@ -27,8 +27,8 @@ vector<Declaracao *> Declaracao::extrai_lista_declaracoes(No_arv_parse* no) {
 
 Expressao* Declaracao::extrai_atra(No_arv_parse* no) {
   Expressao* res = nullptr;
-  if (no->regra == 26) return res;
-  // Tem que ser regra 25.
+  if (no->regra == 29) return res;
+  // Tem que ser regra 28.
   res = Expressao::extrai_expressao(no->filhos[1]);
   return res;
 }

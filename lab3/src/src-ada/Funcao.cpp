@@ -8,19 +8,18 @@ Funcao::Funcao() {
 Funcao* Funcao::extrai_funcao(No_arv_parse *no){
   if (no->regra != 1)   return NULL;
   // Dependente da gramatica. Regra 1 = Funcao.
-  // S -> ID ID ( LP ) { LV LC }
-  // func -> FUNCTION ID LPARENTHESIS param RPARENTHESIS RETURN tipov IS decat BEGIN main RETURN arit SEMICOLON END ID SEMICOLON
+  // 21)func -> FUNCTION ID LPARENTHESIS parametros RPARENTHESIS RETURN tipov IS decat BEGIN main END ID SEMICOLON
   Funcao* res = new Funcao();
   res->nome_funcao = ID::extrai_ID(no->filhos[1]);
   res->parametros = Parametro::extrai_lista_parametros(no->filhos[3]);
   res->tipo_retorno = Tipo::extrai_tipo(no->filhos[6]);
   res->declaracoes = Declaracao::extrai_lista_declaracoes(no->filhos[8]);
-  res->comandos = Comando::extrai_lista_comandos(no->filhos[7]);
-  // res->nome_funcao = ID::extrai_ID(no->filhos[7]);
+  res->comandos = Comando::extrai_lista_comandos(no->filhos[10]);
+  res->nome_funcao = ID::extrai_ID(no->filhos[12]);
   return res;
 }
 
-void debug_variaveis(const vector<Variavel*> &vars, int tab) {
+/*void debug_variaveis(const vector<Variavel*> &vars, int tab) {
   for (int iv = 0; iv < vars.size(); ++iv) {
     tab3(tab);
     vars[iv]->debug_com_tab(tab+1);
@@ -48,3 +47,4 @@ void Funcao::debug() {
   debug_comandos(comandos, 1);
   cerr << "}" <<  endl;
 }
+*/
