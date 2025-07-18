@@ -1,17 +1,18 @@
-#include "ComandoAtribuicao.hpp"
+#include "ComandoReturn.hpp"
 #include <iostream>
 #include "../debug-util.hpp"
 using namespace std;
 
-ComandoAtribuicao::ComandoAtribuicao() {
+ComandoReturn::ComandoReturn() {
   
 }
 
-void ComandoAtribuicao::debug_com_tab(int tab) {
+void ComandoReturn::debug_com_tab(int tab) {
   tab3(tab);
-  cerr << "INI ATRIB: " << esquerda->nome << " = " << endl;
-  direita->debug_com_tab(tab+1);
-  tab3(tab);
-  cerr << "FIM ATRIB" << endl;
-  cerr << endl;
+  // cerr << "INI ATRIB: " << esquerda->nome << " = " << endl;
+  // direita->debug_com_tab(tab+1);
+  // tab3(tab);
+  // cerr << "FIM ATRIB" << endl;
+  // cerr << endl;
+  cerr<<"ComandoReturn"<<endl;
 }

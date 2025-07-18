@@ -1,4 +1,5 @@
 #include "Funcao.hpp"
+#include "Variavel.hpp"
 #include "../debug-util.hpp"
 #include <iostream>
 
@@ -15,11 +16,11 @@ Funcao* Funcao::extrai_funcao(No_arv_parse *no){
   res->tipo_retorno = Tipo::extrai_tipo(no->filhos[6]);
   res->declaracoes = Declaracao::extrai_lista_declaracoes(no->filhos[8]);
   res->comandos = Comando::extrai_lista_comandos(no->filhos[10]);
-  res->nome_funcao = ID::extrai_ID(no->filhos[12]);
+  // res->nome_funcao = ID::extrai_ID(no->filhos[12]);
   return res;
 }
 
-/*void debug_variaveis(const vector<Variavel*> &vars, int tab) {
+void debug_variaveis(const vector<Variavel*> &vars, int tab) {
   for (int iv = 0; iv < vars.size(); ++iv) {
     tab3(tab);
     vars[iv]->debug_com_tab(tab+1);
@@ -33,18 +34,18 @@ void debug_comandos(const vector<Comando*> &coms, int tab) {
 }
 
 void Funcao::debug() {
-  if (tipo_retorno == NULL) cerr<< "TR NULL"<< endl;
+  // if (tipo_retorno == NULL) cerr<< "TR NULL"<< endl;
   if (nome_funcao == NULL) cerr<< "NF NULL"<< endl;
-  cerr << "Funcao:[retorno=" << tipo_retorno->nome << "][nome=" << nome_funcao->nome << "]" << endl;
-  cerr << "      (Param:(";
+  cerr<<"Entrou aqui de algum de jeito"<<endl;
+  // cerr << "Funcao:[retorno= "<< tipo_retorno->nome << "][nome=" << nome_funcao->nome << "]" << endl;
+  /*cerr << "      (Param:(";
   fflush(stderr);
   for (int i_par = 0; i_par < parametros.size(); ++i_par) {
     cerr << (parametros[i_par])->tipo->nome << " " <<
       (parametros[i_par])->nome->nome << ", ";
   }
   cerr << ") { " << endl;
-  debug_variaveis(variaveis, 1);
-  debug_comandos(comandos, 1);
-  cerr << "}" <<  endl;
+  // debug_variaveis(variaveis, 1);
+  // debug_comandos(comandos, 1);
+  cerr << "}" <<  endl;*/
 }
-*/

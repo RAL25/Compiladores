@@ -48,7 +48,6 @@ int main(int argc, char * argv[]) {
   cerr << "Parse executado" << endl;
   arv.debug();
 
-  
   Funcao* func = Funcao::extrai_funcao(arv.raiz);
   func->debug();
   // Exemplo de chamada do analisador semantico.

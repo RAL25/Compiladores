@@ -60,17 +60,17 @@ Comando* Comando::extrai_atr(No_arv_parse* no){
 }
 
 Comando* Comando::extrai_comando(No_arv_parse* no) {
-  /*
-    30) cmd -> IF arit THEN main parte_condicional END IF SEMICOLON
-    */
-   ComandoIF* res = new ComandoIF();
-   res->condicao_if = Expressao::extrai_expressao(no->filhos[1]);
-   res->corpo_if = Comando::extrai_lista_comandos(no->filhos[3]);
-   res->corpo_else = extrai_else(no->filhos[4]);
-   return res;     
-  }
+/*
+  30) cmd -> IF arit THEN main parte_condicional END IF SEMICOLON
+  */
+  ComandoIF* res = new ComandoIF();
+  res->condicao_if = Expressao::extrai_expressao(no->filhos[1]);
+  res->corpo_if = Comando::extrai_lista_comandos(no->filhos[3]);
+  res->corpo_else = extrai_else(no->filhos[4]);
+  return res;     
+}
   
-  vector<Comando*> extrai_else(No_arv_parse* no){
+vector<Comando*> Comando::extrai_else(No_arv_parse* no){
   /*
   31) parte_condicional -> ELSIF arit THEN main parte_condicional
   32) parte_condicional -> ELSE main
@@ -86,9 +86,10 @@ Comando* Comando::extrai_comando(No_arv_parse* no) {
     // Tem que ser a regra 33.
     return vector<Comando*>();
   }
+  return res;
 }
 
-Comando* extrai_loop(No_arv_parse* no){
+Comando* Comando::extrai_loop(No_arv_parse* no){
   // 65)loop -> WHILE arit LOOP main END LOOP SEMICOLON
   ComandoWhile* res = new ComandoWhile();
   res->condicao_while = Expressao::extrai_expressao(no->filhos[1]);
@@ -96,7 +97,7 @@ Comando* extrai_loop(No_arv_parse* no){
   return res;
 }
 
-Comando* extrai_retorno(No_arv_parse* no){
+Comando* Comando::extrai_retorno(No_arv_parse* no){
   // 13)ret -> RETURN main
   ComandoReturn* res = new ComandoReturn();
   res->retorno_comandos = Comando::extrai_lista_comandos(no->filhos[1]);
@@ -104,6 +105,6 @@ Comando* extrai_retorno(No_arv_parse* no){
 }
 
 void Comando::debug_com_tab(int tab) {
-  /*tab3(tab);
-  cerr << "Comando generico"<< endl;*/
+  tab3(tab);
+  cerr << "Comando generico"<< endl;
 }

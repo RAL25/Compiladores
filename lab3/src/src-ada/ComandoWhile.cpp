@@ -1,17 +1,18 @@
-#include "ComandoAtribuicao.hpp"
+#include "ComandoWhile.hpp"
 #include <iostream>
 #include "../debug-util.hpp"
 using namespace std;
 
-ComandoAtribuicao::ComandoAtribuicao() {
+ComandoWhile::ComandoWhile() {
   
 }
 
-void ComandoAtribuicao::debug_com_tab(int tab) {
+void ComandoWhile::debug_com_tab(int tab) {
   tab3(tab);
-  cerr << "INI ATRIB: " << esquerda->nome << " = " << endl;
-  direita->debug_com_tab(tab+1);
-  tab3(tab);
-  cerr << "FIM ATRIB" << endl;
-  cerr << endl;
+  // cerr << "INI ATRIB: " << esquerda->nome << " = " << endl;
+  // direita->debug_com_tab(tab+1);
+  // tab3(tab);
+  // cerr << "FIM ATRIB" << endl;
+  // cerr << endl;
+  cerr<<"ComandoWhile"<<endl;
 }

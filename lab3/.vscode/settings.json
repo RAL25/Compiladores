@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        ".als.json": "jsonc",
+        "*.dbclient-js": "javascript",
+        "ostream": "cpp"
+    }
+}
