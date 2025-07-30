@@ -3,6 +3,8 @@
 #include "ComandoIF.hpp"
 #include "ComandoWhile.hpp"
 #include "ComandoReturn.hpp"
+#include "ComandoExpressao.hpp"
+#include "Expressao.hpp"
 #include "ID.hpp"
 #include "Variavel.hpp"
 #include <iostream>
@@ -11,7 +13,7 @@
 vector<Comando*> Comando::extrai_lista_comandos(No_arv_parse* no) {
   /*
   6) main -> atr main
-  7) main -> arit SEMICOLON main
+  7) main -> exp main
   8) main -> call SEMICOLON main
   9) main -> cmd main
   10) main -> loop main
@@ -25,8 +27,12 @@ vector<Comando*> Comando::extrai_lista_comandos(No_arv_parse* no) {
     vector<Comando*> restante = extrai_lista_comandos(no->filhos[1]);
     res.insert(res.end(), restante.begin(), restante.end());
   }
-  else if (no->regra == 7)   
-    return Comando::extrai_lista_comandos(no->filhos[1]);
+  else if (no->regra == 7){
+    res.push_back(chama_extrai_expressao(no->filhos[0]));
+    vector<Comando*> restante = extrai_lista_comandos(no->filhos[1]);
+    res.insert(res.end(), restante.begin(), restante.end());
+    // return Comando::extrai_lista_comandos(no->filhos[2]);
+  }
   else if (no->regra == 8)
     return Comando::extrai_lista_comandos(no->filhos[2]);
   else if (no->regra == 9) {
@@ -53,9 +59,16 @@ vector<Comando*> Comando::extrai_lista_comandos(No_arv_parse* no) {
 
 Comando* Comando::extrai_atr(No_arv_parse* no){
   // 34)atr -> ID ASSIGNMENT arit SEMICOLON
-  ComandoAtribuicao* res;
+  ComandoAtribuicao* res = new ComandoAtribuicao();
   res->esquerda = ID::extrai_ID(no->filhos[0]);
   res->direita = Expressao::extrai_expressao(no->filhos[2]);
+  return res;
+}
+
+Comando* Comando::chama_extrai_expressao(No_arv_parse* no){
+  // 66)exp -> arit SEMICOLON 
+  ComandoExpressao* res = new ComandoExpressao();
+  res->expressao_arit = Expressao::extrai_expressao(no->filhos[0]);
   return res;
 }
 

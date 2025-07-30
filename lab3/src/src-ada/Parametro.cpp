@@ -13,12 +13,17 @@ using namespace std;
 */
 
 vector<Parametro *> Parametro::extrai_lista_parametros(No_arv_parse* no) {
+  // cerr << "Entrou aqui 1"<< endl;
   // LP
   if (no->regra == 23) return vector<Parametro*>();
+  // cerr << "Entrou aqui 2"<< endl;
   // Tem que ser regra 22.
   vector<Parametro*> res;
-  Parametro* aux;
+  // cerr << "Entrou aqui 3"<< endl;
+  Parametro* aux = new Parametro();
+  // cerr << "Entrou aqui 4"<< endl;
   aux->nome = ID::extrai_ID(no->filhos[0]);
+  // cerr << "Entrou aqui 5"<< endl;
   aux->tipo = Tipo::extrai_tipo(no->filhos[2]);
   res.push_back(aux);
   vector<Parametro*> restante = extrai_lista_par(no->filhos[3]);
@@ -30,7 +35,7 @@ vector<Parametro*> Parametro::extrai_lista_par(No_arv_parse* no) {
   if (no->regra == 25) return vector<Parametro*>();
   // Tem que ser regra 24.
   vector<Parametro*> res;
-  Parametro* aux;
+  Parametro* aux = new Parametro();
   aux->nome = ID::extrai_ID(no->filhos[1]);
   aux->tipo = Tipo::extrai_tipo(no->filhos[3]);
   res.push_back(aux);
@@ -40,6 +45,6 @@ vector<Parametro*> Parametro::extrai_lista_par(No_arv_parse* no) {
 }
 
 void Parametro::debug_com_tab(int tab) {
-  tab3(tab);
-  cerr << "[" << nome->nome << ":" <<  tipo->nome << "] Parametro Declarada" << endl;
+  // tab3(tab);
+  // cerr << "[" << nome->nome << ":" <<  tipo->nome << "] Variavel Declarada" << endl;
 }

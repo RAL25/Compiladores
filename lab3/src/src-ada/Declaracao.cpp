@@ -15,7 +15,7 @@ vector<Declaracao *> Declaracao::extrai_lista_declaracoes(No_arv_parse* no) {
   if (no->regra == 27) return vector<Declaracao*>();
   // Tem que ser regra 26.
   vector<Declaracao*> res;
-  Declaracao* aux;
+  Declaracao* aux = new Declaracao();
   aux->nome = ID::extrai_ID(no->filhos[0]);
   aux->tipo = Tipo::extrai_tipo(no->filhos[2]);
   aux->valor_ini = extrai_atra(no->filhos[3]);
@@ -35,5 +35,5 @@ Expressao* Declaracao::extrai_atra(No_arv_parse* no) {
 
 void Declaracao::debug_com_tab(int tab) {
   tab3(tab);
-  cerr << "[" << nome->nome << ":" <<  tipo->nome << "] Declaracao Declarada" << endl;
+  cerr << "[" << nome->nome << ":" <<  tipo->nome << "] Variavel Declarada" << endl;
 }

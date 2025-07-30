@@ -14,4 +14,5 @@ void ComandoAtribuicao::debug_com_tab(int tab) {
   tab3(tab);
   cerr << "FIM ATRIB" << endl;
   cerr << endl;
+  // cerr<<"Comando atribuicao"<<endl;
 }

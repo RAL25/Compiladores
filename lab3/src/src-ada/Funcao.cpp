@@ -7,7 +7,7 @@ Funcao::Funcao() {
 }
 
 Funcao* Funcao::extrai_funcao(No_arv_parse *no){
-  if (no->regra != 1)   return NULL;
+  if (no->regra != 21)   return NULL;
   // Dependente da gramatica. Regra 1 = Funcao.
   // 21)func -> FUNCTION ID LPARENTHESIS parametros RPARENTHESIS RETURN tipov IS decat BEGIN main END ID SEMICOLON
   Funcao* res = new Funcao();
@@ -20,7 +20,7 @@ Funcao* Funcao::extrai_funcao(No_arv_parse *no){
   return res;
 }
 
-void debug_variaveis(const vector<Variavel*> &vars, int tab) {
+void debug_variaveis(const vector<Parametro*> &vars, int tab) {
   for (int iv = 0; iv < vars.size(); ++iv) {
     tab3(tab);
     vars[iv]->debug_com_tab(tab+1);
@@ -33,19 +33,26 @@ void debug_comandos(const vector<Comando*> &coms, int tab) {
   }  
 }
 
+void debug_declaracoes(const vector<Declaracao*> &coms, int tab) {
+  for (int ic = 0; ic < coms.size(); ++ic) {
+    tab3(tab);
+    coms[ic]->debug_com_tab(tab+1);
+  }  
+}
+
 void Funcao::debug() {
-  // if (tipo_retorno == NULL) cerr<< "TR NULL"<< endl;
+  if (tipo_retorno == NULL) cerr<< "TR NULL"<< endl;
   if (nome_funcao == NULL) cerr<< "NF NULL"<< endl;
-  cerr<<"Entrou aqui de algum de jeito"<<endl;
-  // cerr << "Funcao:[retorno= "<< tipo_retorno->nome << "][nome=" << nome_funcao->nome << "]" << endl;
-  /*cerr << "      (Param:(";
+  cerr << "Funcao:[retorno= "<< tipo_retorno->nome << "][nome=" << nome_funcao->nome << "]" << endl;
+  cerr << "      (Param:(";
   fflush(stderr);
   for (int i_par = 0; i_par < parametros.size(); ++i_par) {
     cerr << (parametros[i_par])->tipo->nome << " " <<
       (parametros[i_par])->nome->nome << ", ";
   }
   cerr << ") { " << endl;
-  // debug_variaveis(variaveis, 1);
-  // debug_comandos(comandos, 1);
-  cerr << "}" <<  endl;*/
+  // debug_variaveis(parametros, 1);
+  debug_declaracoes(declaracoes, 1);
+  debug_comandos(comandos, 1);
+  cerr << "}" <<  endl;
 }

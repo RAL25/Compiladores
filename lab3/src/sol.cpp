@@ -49,7 +49,8 @@ int main(int argc, char * argv[]) {
   arv.debug();
 
   Funcao* func = Funcao::extrai_funcao(arv.raiz);
-  func->debug();
+  if (func == NULL){ cerr<< "FUNC NULL"<< endl; }
+  else func->debug();
   // Exemplo de chamada do analisador semantico.
   // vector<int> parametros_passados;
   // for (int i = 1; i <= 3; ++i) {
