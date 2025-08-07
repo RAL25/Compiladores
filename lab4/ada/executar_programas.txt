@@ -1,0 +1,14 @@
+Executar parte léxica: (no diretório Lexica)
+java Ada < ../codes/e.adb > ../ins/e.in
+
+Para executar o conversor da parte e.in para site.in: (no diretório ada)
+python3 conversor.py < ins/e.in > site_ins/site.in
+
+Para executar o src e criar o arquivo binário parser: (no diretório raiz)
+g++ src/*.cpp > bin/parser
+
+Para executar o src e src-ada e criar o arquivo binário parser: (no diretório raiz)
+g++ -O3 src/*.cpp src/src-ada/*.cpp src/Frame/*.cpp -o bin/parser
+
+Para executar o binário parser e mostrar a árvore no temrinal: (no diretório ada)
+../bin/parser < ins/e.in
